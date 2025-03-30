@@ -1,0 +1,261 @@
+.PaymentGateway {
+    background: linear-gradient(135deg, #f8fafc 0%, #e9edf1 100%);
+    min-height: 100vh;
+    padding: 40px 0;
+  }
+  
+  .PaymentGateway .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .payment-section {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .payment-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--color-blue), #4dabf7);
+  }
+  
+  .payment-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .payment-header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #111;
+    margin-bottom: 10px;
+  }
+  
+  .payment-header p {
+    font-size: 1.1rem;
+    color: #666;
+  }
+  
+  .payment-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  
+  .service-summary {
+    background: rgba(250, 250, 250, 0.8);
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(6px);
+    height: fit-content;
+  }
+  
+  .service-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .service-image:hover img {
+    transform: scale(1.03);
+  }
+  
+  .service-details h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #111;
+  }
+  
+  .service-details .provider {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .service-details .price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-blue);
+  }
+  
+  .payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .payment-method {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .payment-method.active {
+    border: 1px solid var(--color-blue);
+    box-shadow: 0 5px 20px rgba(13, 110, 253, 0.1);
+  }
+  
+  .method-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: rgba(250, 250, 250, 0.8);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .method-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+  }
+  
+  .method-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .method-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #111;
+  }
+  
+  .method-content {
+    padding: 30px;
+  }
+  
+  .payment-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .success-icon {
+    width: 60px;
+    height: 60px;
+    color: var(--color-green);
+    margin-bottom: 20px;
+  }
+  
+  .payment-success p {
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+  }
+  
+  .mock-payment-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.mock-pay-button {
+    background: linear-gradient(135deg, #0d6efd, #4dabf7);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mock-pay-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.mock-cancel-button {
+    background: transparent;
+    color: #666;
+    border: 1px solid #ddd;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mock-cancel-button:hover {
+    background: #f8f9fa;
+}
+
+.dev-note {
+    background: #f8f9fa;
+    border-left: 4px solid #0d6efd;
+    padding: 12px;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.dev-note strong {
+    color: #0d6efd;
+}
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .payment-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .service-summary {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .payment-section {
+      padding: 30px;
+    }
+    
+    .payment-header h1 {
+      font-size: 1.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .payment-section {
+      padding: 25px 20px;
+    }
+    
+    .payment-header h1 {
+      font-size: 1.5rem;
+    }
+    
+    .service-details h2 {
+      font-size: 1.3rem;
+    }
+    
+    .service-details .price {
+      font-size: 1.8rem;
+    }
+  }

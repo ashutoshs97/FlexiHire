@@ -84,6 +84,7 @@ function App() {
               path="/dashboard/client/:id/profile"
               element={<Profile type="2" />}
             />
+            {/* ✅ New Payment Route */}
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
