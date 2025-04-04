@@ -1042,171 +1042,173 @@ nav button a {
 }
 /* End Sign Up Section */
 
-/* Start Dahsboard Freelancer Home*/
+/* Freelancer Dashboard - Elegant & Consistent UI */
+
+/* Base Layout */
 .FreelancerDashboard .section {
   min-height: calc(100vh - 173px);
+  padding: 2rem;
+  background-color: #f9f9fb;
 }
+
+/* Header */
 .FreelancerDashboard .header {
-  font-size: 40px;
-  margin-top: 20px;
-}
-.FreelancerDashboard .stats {
-  margin-top: 31px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
-}
-.FreelancerDashboard .serverStopped {
-  color: var(--color-orange);
-  font-size: 50px;
-  text-align: center;
+  font-size: 2.8rem;
   font-weight: 700;
-  height: 78vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
 }
+
+/* Stats Cards Container */
+.FreelancerDashboard .stats {
+  display: flex;
+  flex-wrap: nowrap;  /* Prevents wrapping */
+  gap: 20px;  /* Adds spacing between cards */
+  justify-content: center;  /* Centers the cards */
+  align-items: center;
+}
+
+/* Single Stat Card */
 .FreelancerDashboard .stats .card {
-  padding: 39px 20px;
-  width: calc(1320px / 5);
+  flex: 1;  /* Ensures equal width */
+  max-width: 300px;  /* Adjust max width as needed */
+  min-width: 200px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: rgba(21, 34, 50, 0.26) 10px 10px 20px;
-  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
 }
+
+.FreelancerDashboard .stats .card:hover {
+  transform: translateY(-5px);
+}
+
+/* Card Text Info */
 .FreelancerDashboard .stats .card .info {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0.5rem;
 }
+
 .FreelancerDashboard .stats .card .info .title {
-  font-size: 16px;
-  color: var(--color-grey);
+  font-size: 0.95rem;
+  color: #888;
 }
+
 .FreelancerDashboard .stats .card .info .body-stat {
-  font-size: 28px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
 }
+
+/* Card Logo */
 .FreelancerDashboard .stats .card .logo {
-  width: 62px;
-  height: 62px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   background-color: var(--color-border-orange);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-@media (max-width: 1400px) {
-  .FreelancerDashboard .stats {
-    gap: 60px;
-  }
-  .FreelancerDashboard .stats .card {
-    width: 500px;
-  }
-}
-@media (max-width: 1200px) {
-  .FreelancerDashboard .stats {
-    gap: 25px;
-  }
-  .FreelancerDashboard .stats .card {
-    width: 420px;
-  }
-}
-@media (max-width: 990px) {
-  .FreelancerDashboard .stats {
-    gap: 25px;
-  }
-  .FreelancerDashboard .stats .card {
-    width: 100%;
-  }
-}
 
+/* Testimonials Section */
 .FreelancerDashboard .testimonials {
-  margin-top: 30px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
+  margin-top: 3rem;
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
 }
 
 .FreelancerDashboard .testimonials:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
+/* Testimonials Header */
 .FreelancerDashboard .testimonials .header {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
+  font-size: 1.8rem;
+  font-weight: 600;
   text-align: center;
-  margin-bottom: 15px;
+  color: #444;
+  margin-bottom: 1.5rem;
 }
 
+/* Testimonials Cards Container */
 .FreelancerDashboard .testimonials .cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 1.5rem;
 }
 
+/* No Testimonials Placeholder */
 .FreelancerDashboard .testimonials .cards .noTestimonials {
-  color: var(--color-orange);
-  font-size: 18px;
-  text-align: center;
-  font-weight: 500;
-  padding: 20px;
-  border-radius: 8px;
-  background: #faf3e0;
-}
-
-.noTestimonials:hover {
-  background: #eef2f3;
-}
-
-.FreelancerDashboard .testimonials .cards .card {
-  padding: 13px 34px;
-  display: flex;
-  flex-direction: column;
+  padding: 1.2rem;
+  background: #fff6ed;
   border-radius: 10px;
-  width: 80%;
-  background-color: var(--color-orange);
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  cursor: grab;
-  height: 100%;
-}
-.FreelancerDashboard .testimonials .cards .card img {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-}
-.FreelancerDashboard .testimonials .cards .card .info {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  gap: 18px;
-  margin-top: 18px;
-  min-width: 50%;
-}
-.FreelancerDashboard .testimonials .cards .card .info .cardHeader {
-  font-size: 30px;
-}
-.FreelancerDashboard .testimonials .cards .card .info .cardDescription {
-  font-size: 20px;
-  width: 60%;
-  text-align: center;
-  color: white;
+  color: var(--color-orange);
   font-weight: 500;
+  text-align: center;
+  transition: background 0.3s ease;
 }
-.FreelancerDashboard .swiper-slide {
-  width: 80%;
+
+.FreelancerDashboard .testimonials .cards .noTestimonials:hover {
+  background: #f2f2f2;
+}
+
+/* Testimonial Card */
+.FreelancerDashboard .testimonials .cards .card {
+  width: 320px;
+  background-color: var(--color-orange);
+  padding: 1.5rem;
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  cursor: grab;
+  transition: transform 0.3s ease;
+}
+
+.FreelancerDashboard .testimonials .cards .card:hover {
+  transform: translateY(-5px);
+}
+
+/* Testimonial Image */
+.FreelancerDashboard .testimonials .cards .card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Testimonial Info */
+.FreelancerDashboard .testimonials .cards .card .info {
+  text-align: center;
+  color: #fff;
+}
+
+.FreelancerDashboard .testimonials .cards .card .info .cardHeader {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.FreelancerDashboard .testimonials .cards .card .info .cardDescription {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-top: 0.5rem;
+}
+
+/* Swiper Custom Styling */
+.FreelancerDashboard .swiper-slide {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -1217,311 +1219,266 @@ nav button a {
 .FreelancerDashboard .swiper-button-prev:after {
   color: white;
 }
+
+/* Server Stopped Text */
+.FreelancerDashboard .serverStopped {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: var(--color-orange);
+  text-align: center;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Dashboard Menu */
 .Menu {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  background: #fff;
+  background: white;
   border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 1rem;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .Menu .link {
-  border-radius: 8px;
+  border-radius: 10px;
   transition: all 0.3s ease-in-out;
 }
 
 .Menu .link a {
   display: flex;
   align-items: center;
-  padding: 14px;
+  padding: 0.9rem 1.2rem;
   text-decoration: none;
+  color: #555;
+  font-weight: 600;
   transition: all 0.3s ease-in-out;
 }
 
 .Menu .link a .linkHeader {
   margin-left: 10px;
-  font-weight: 600;
-  color: #555;
 }
 
 .Menu .link.active {
   background: var(--color-border-orange);
+  color: #fff;
 }
 
 .Menu .link:hover {
   background: var(--color-light-orange);
-  transform: scale(1.05);
+  transform: translateY(-2px);
 }
-@media (max-width: 990px) {
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .FreelancerDashboard .stats {
+    flex-wrap: wrap;  /* Allows wrapping on smaller screens */
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
   .Menu .link {
-    display: flex;
-    width: 100px;
+    flex: 1;
     justify-content: center;
   }
   .Menu .linkHeader {
     display: none;
   }
 }
-/* End Dahsboard Freelancer Home*/
 
-/* Start Dashboard Freelancer Service */
-.FreelancerServices .section {
-  min-height: calc(100vh - 273px);
-}
-.FreelancerServices .buttons {
-  margin-block: 73px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: 130px;
-}
-.FreelancerServices .buttons button {
-  cursor: pointer;
-  padding: 16px 46px;
-  width: 280px;
-  color: white;
-  background-color: var(--color-orange);
-  font-size: 30px;
-  outline: none;
-  border: none;
-  border-radius: 10px;
-}
-.FreelancerServices .services {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 30px;
-}
-.FreelancerServices .services a {
-  text-decoration: none;
-  color: black;
-}
-.FreelancerServices .noServices {
-  color: var(--color-orange);
-  font-size: 50px;
-  text-align: center;
-  font-weight: 700;
-  height: 270px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.FreelancerServices .services .service {
-  width: 294px;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: rgba(21, 34, 50, 0.26) 10px 10px 20px;
-  transition: 0.7s;
-}
-.FreelancerServices .services .service:hover {
-  transform: translateY(-10px);
-}
-.FreelancerServices .services .service .slider img {
-  width: 100%;
-  height: 193px;
-  cursor: grab;
-}
-.FreelancerServices .services .service .slider img:active {
-  cursor: grabbing;
-}
-.FreelancerServices .services .service .serviceHeader {
-  font-size: 18px;
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-  margin-left: 15px;
-  align-items: center;
-  font-weight: 500;
-}
-.FreelancerServices .services .service .serviceHeader img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-.FreelancerServices .services .service .serviceTitle {
-  width: 100%;
-  overflow: hidden;
-  text-align: center;
-  font-size: 25px;
-  font-weight: 500;
-}
-.FreelancerServices .services .service .serviceDescription {
-  margin-left: 17px;
-  margin-right: 29px;
-  width: 249px;
-  height: 83px;
-  word-wrap: break-word;
-  overflow: hidden;
-  text-align: justify;
-}
-.FreelancerServices .services .service .rating-more {
-  display: flex;
-  align-items: center;
-  padding-right: 24px;
-  margin-top: 15px;
-  margin-left: 17px;
-  justify-content: space-between;
-}
-.FreelancerServices .services .service .rating-more .rating {
-  font-weight: 500;
-  gap: 5px;
-  display: flex;
-  align-items: center;
-}
-.FreelancerServices .services .service .rating-more button {
-  font-weight: bolder;
-  cursor: pointer;
-  background-color: var(--color-orange);
-  color: white;
-  padding: 10px 20px;
-  outline: none;
-  border: none;
-  border-radius: 10px;
-}
-.FreelancerServices .services .service .rating svg {
-  width: 24px;
-  height: 24px;
-  fill: orange;
-}
-.FreelancerServices .services .service hr {
-  margin-block: 11.5px;
-  width: 100%;
-  border-top: 0.5px;
-}
-.FreelancerServices .services .service .servicePrice {
-  padding-inline: 29px;
-  text-align: right;
-  padding-bottom: 9px;
-  font-size: 20px;
-}
-@media (max-width: 767px) {
-  .FreelancerServices .buttons {
-    gap: 50px;
-  }
-}
-/* End Dashboard Freelancer Service */
 
-/* Start Create Service */
+
+/* Start Create Service - Light Theme */
 .FreelancerCreateService .section {
   min-height: calc(100vh - 173px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #f9f9f9;
 }
+
 .FreelancerCreateService .go-back-button {
   align-self: flex-start;
   margin-top: 20px;
 }
+
 .FreelancerCreateService .go-back-button button {
-  margin-top: 7px;
   cursor: pointer;
   outline: none;
-  border: none;
-  background-color: var(--color-orange);
+  border: 1px solid #ff8c00;
+  background-color: #ff8c00;
   color: white;
-  padding: 10px 55px;
+  padding: 12px 60px;
   font-size: 16px;
-  margin-top: 25px;
-  border-radius: 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 10px rgba(255, 140, 0, 0.3);
 }
+
+.FreelancerCreateService .go-back-button button:hover {
+  background-color: #e67e22;
+  box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
+  transform: translateY(-2px);
+}
+
 .FreelancerCreateService .createHeader {
-  font-size: 50px;
+  font-size: 48px;
   text-align: center;
-  color: var(--color-orange);
+  color: #ff8c00;
   margin-top: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
+
 .FreelancerCreateService form {
-  width: 922px;
+  width: 850px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 25px;
+  background: white;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
 }
+
 .FreelancerCreateService form label {
-  display: inline-block;
-  color: var(--color-orange);
+  color: #444;
   font-weight: bold;
   font-size: 14px;
-  width: 100%;
   text-align: left;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
-.FreelancerCreateService form input {
-  color: white;
-  background-color: var(--color-orange);
-  border: 2px solid var(--color-light-orange);
-  outline: none;
-  width: 90%;
-  padding: 17px 20px;
-  font-size: 18px;
-  border-radius: 10px;
-}
+
+.FreelancerCreateService form input,
 .FreelancerCreateService form textarea {
-  color: white;
-  padding: 17px 20px;
-  background-color: var(--color-orange);
-  border: 1px solid var(--color-light-orange);
+  color: #333;
+  background: #f8f8f8;
+  border: 2px solid #ddd;
   outline: none;
+  width: 95%;
+  padding: 16px 20px;
   font-size: 18px;
-  border-radius: 10px;
-  width: 90%;
-  min-width: 90%;
-  max-width: 90%;
-  min-height: 22px;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
 }
+
+.FreelancerCreateService form input:focus,
+.FreelancerCreateService form textarea:focus {
+  border-color: #ff8c00;
+  background: white;
+  transform: scale(1.02);
+}
+
+.FreelancerCreateService form textarea {
+  min-height: 80px;
+  resize: none;
+}
+
 .FreelancerCreateService .images {
   cursor: pointer;
-  color: white;
-  background-color: var(--color-orange);
-  border: 2px solid var(--color-light-orange);
-  width: 90%;
+  color: #444;
+  background: #f8f8f8;
+  border: 2px solid #ddd;
+  width: 100%;
   padding: 17px 20px;
   font-size: 18px;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: center;
   font-weight: 500;
+  transition: all 0.3s ease-in-out;
 }
+
+.FreelancerCreateService .images:hover {
+  background: white;
+  border-color: #ff8c00;
+  transform: scale(1.02);
+}
+
 .FreelancerCreateService form button {
-  margin-top: 7px;
   cursor: pointer;
   outline: none;
   border: none;
   border-radius: 30px;
-  background-color: var(--color-orange);
+  background: linear-gradient(135deg, #ff8c00, #e67e22);
   color: white;
-  padding: 10px 55px;
+  padding: 12px 60px;
   font-size: 16px;
-  margin-top: 25px;
+  font-weight: bold;
   align-self: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 10px rgba(230, 126, 34, 0.3);
+}
+
+.FreelancerCreateService form button:hover {
+  background: linear-gradient(135deg, #e67e22, #ff8c00);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
 }
 
 .FreelancerCreateService form input[type="file"] {
   display: none;
 }
+
 .FreelancerCreateService input::placeholder,
 .FreelancerCreateService textarea::placeholder {
-  color: white;
+  color: rgba(100, 100, 100, 0.6);
 }
+
 .FreelancerCreateService input:focus::placeholder,
 .FreelancerCreateService textarea:focus::placeholder {
   opacity: 0;
   transition: 0.3s;
 }
+
+/* Responsive Design */
 @media (max-width: 930px) {
   .FreelancerCreateService form {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    padding: 25px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .FreelancerCreateService .createHeader {
+    font-size: 36px;
+  }
+
+  .FreelancerCreateService form {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .FreelancerCreateService form input,
+  .FreelancerCreateService form textarea {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .FreelancerCreateService form button {
+    padding: 10px 40px;
+    font-size: 14px;
   }
 }
 /* End Create Service */
+
+
+
 
 /* Start Manage Services */
 .FreelancerManageServices .section {
@@ -1529,233 +1486,354 @@ nav button a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: #f8f9fa;
+  padding: 20px;
 }
+
+/* Back Button */
 .FreelancerManageServices .go-back-button {
   align-self: flex-start;
   margin-top: 20px;
 }
 .FreelancerManageServices .go-back-button button {
-  margin-top: 7px;
   cursor: pointer;
   outline: none;
   border: none;
-  background-color: var(--color-orange);
+  background: linear-gradient(135deg, #3498db, #6dd5fa);
   color: white;
-  padding: 10px 55px;
+  padding: 12px 40px;
   font-size: 16px;
-  margin-top: 25px;
   border-radius: 10px;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+.FreelancerManageServices .go-back-button button:hover {
+  background: linear-gradient(135deg, #2980b9, #56c3f1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Header */
 .FreelancerManageServices .manageHeader {
-  font-size: 50px;
+  font-size: 42px;
   text-align: center;
-  color: var(--color-orange);
-  margin-block: 53px;
+  color: #2c3e50;
+  margin-block: 40px;
+  font-weight: bold;
 }
+
+/* Table Styling */
 .FreelancerManageServices table {
   width: 100%;
   border-collapse: collapse;
-  overflow-y: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
-.FreelancerManageServices table td {
-  width: 25%;
-  padding: 17px 25px;
-}
-.FreelancerManageServices table tr {
-  border-bottom: 1px solid var(--color-grey);
-}
+
 .FreelancerManageServices table thead td {
-  font-size: 30px;
+  font-size: 22px;
+  font-weight: bold;
+  background: #ecf0f1;
+  color: #2c3e50;
+  padding: 18px;
 }
+
+.FreelancerManageServices table tbody td {
+  font-size: 18px;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.3s;
+}
+.FreelancerManageServices table tbody tr:hover {
+  background: #f5f5f5;
+}
+
+/* No Services Message */
 .FreelancerManageServices .noServices {
-  color: var(--color-orange);
-  font-size: 50px;
+  color: #2c3e50;
+  font-size: 40px;
   text-align: center;
-  font-weight: 700;
-  height: 270px;
+  font-weight: bold;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
-.FreelancerManageServices table tbody td {
-  font-size: 18px;
-}
+
+/* Action Buttons */
 .FreelancerManageServices table tbody td:last-of-type {
-  width: fit-content;
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
+  gap: 14px;
 }
 .FreelancerManageServices table tbody td button {
-  padding: 13px 33px;
+  padding: 12px 30px;
   color: white;
   cursor: pointer;
   outline: none;
-  font-size: 18px;
+  font-size: 16px;
   border: none;
-  min-width: 123px;
+  min-width: 120px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 8px;
+  transition: 0.3s ease;
+  font-weight: bold;
 }
+
+/* Glassmorphism Effect for Buttons */
 .FreelancerManageServices table tbody td a {
   text-decoration: none;
 }
 .FreelancerManageServices table tbody td a:first-of-type button {
-  background-color: var(--color-green);
+  background: rgba(39, 174, 96, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
 }
+.FreelancerManageServices table tbody td a:first-of-type button:hover {
+  background: rgba(39, 174, 96, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(39, 174, 96, 0.5);
+}
+
+/* Delete Button with Glow */
 .FreelancerManageServices table tbody td button:last-of-type {
-  background-color: var(--color-red);
+  background: rgba(231, 76, 60, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
 }
-@media (max-width: 550px) {
-  .FreelancerManageServices table {
-    display: inline-block;
+.FreelancerManageServices table tbody td button:last-of-type:hover {
+  background: rgba(231, 76, 60, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .FreelancerManageServices .manageHeader {
+    font-size: 34px;
   }
-  .FreelancerManageServices table td {
-    width: 70%;
+  .FreelancerManageServices table {
+    width: 100%;
   }
   .FreelancerManageServices table thead td {
-    font-size: 20px;
+    font-size: 18px;
   }
   .FreelancerManageServices table tbody td {
     font-size: 16px;
   }
   .FreelancerManageServices table tbody td button {
-    color: white;
-    cursor: pointer;
-    outline: none;
-    font-size: 16px;
-    border: none;
-    min-width: 117px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
+    font-size: 14px;
+    padding: 10px 25px;
   }
 }
-@media (max-width: 460px) {
-  .FreelancerManageServices table {
-    display: inline-block;
+
+@media (max-width: 480px) {
+  .FreelancerManageServices .manageHeader {
+    font-size: 28px;
+  }
+  .FreelancerManageServices table thead td {
+    font-size: 16px;
+    padding: 14px;
+  }
+  .FreelancerManageServices table tbody td {
+    font-size: 14px;
+    padding: 12px;
+  }
+  .FreelancerManageServices table tbody td button {
+    font-size: 12px;
+    padding: 8px 20px;
   }
 }
 /* End Manage Services */
 
-/* Start Update Service */
+/* Start Update Service - Light Theme */
 .FreelancerUpdateService .section {
   min-height: calc(100vh - 173px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #f9f9f9;
 }
+
 .FreelancerUpdateService .go-back-button {
   align-self: flex-start;
   margin-top: 20px;
 }
+
 .FreelancerUpdateService .go-back-button button {
-  margin-top: 7px;
   cursor: pointer;
   outline: none;
-  border: none;
-  background-color: var(--color-orange);
+  border: 1px solid #ff8c00;
+  background-color: #ff8c00;
   color: white;
-  padding: 10px 55px;
+  padding: 12px 60px;
   font-size: 16px;
-  margin-top: 25px;
-  border-radius: 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 10px rgba(255, 140, 0, 0.3);
 }
+
+.FreelancerUpdateService .go-back-button button:hover {
+  background-color: #e67e22;
+  box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
+  transform: translateY(-2px);
+}
+
 .FreelancerUpdateService .updateHeader {
-  font-size: 50px;
+  font-size: 48px;
   text-align: center;
-  color: var(--color-orange);
-  margin-block: 53px;
+  color: #ff8c00;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
+
 .FreelancerUpdateService form {
-  width: 922px;
+  width: 850px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 25px;
+  background: white;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
 }
+
 .FreelancerUpdateService form label {
-  display: inline-block;
-  color: var(--color-orange);
+  color: #444;
   font-weight: bold;
   font-size: 14px;
-  width: 100%;
   text-align: left;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
-.FreelancerUpdateService form input {
-  color: white;
-  background-color: var(--color-orange);
-  border: 2px solid var(--color-light-orange);
-  outline: none;
-  width: 90%;
-  padding: 17px 20px;
-  font-size: 18px;
-  border-radius: 10px;
-}
+
+.FreelancerUpdateService form input,
 .FreelancerUpdateService form textarea {
-  color: white;
-  padding: 17px 20px;
-  background-color: var(--color-orange);
-  border: 1px solid var(--color-light-orange);
+  color: #333;
+  background: #f8f8f8;
+  border: 2px solid #ddd;
   outline: none;
+  width: 95%;
+  padding: 16px 20px;
   font-size: 18px;
-  border-radius: 10px;
-  width: 90%;
-  min-width: 90%;
-  max-width: 90%;
-  min-height: 22px;
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
 }
+
+.FreelancerUpdateService form input:focus,
+.FreelancerUpdateService form textarea:focus {
+  border-color: #ff8c00;
+  background: white;
+  transform: scale(1.02);
+}
+
+.FreelancerUpdateService form textarea {
+  min-height: 80px;
+  resize: none;
+}
+
 .FreelancerUpdateService .images {
   cursor: pointer;
-  color: white;
-  background-color: var(--color-orange);
-  border: 2px solid var(--color-light-orange);
-  width: 90%;
+  color: #444;
+  background: #f8f8f8;
+  border: 2px solid #ddd;
+  width: 100%;
   padding: 17px 20px;
   font-size: 18px;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: center;
   font-weight: 500;
+  transition: all 0.3s ease-in-out;
 }
-.FreelancerUpdateService button {
-  margin-top: 7px;
+
+.FreelancerUpdateService .images:hover {
+  background: white;
+  border-color: #ff8c00;
+  transform: scale(1.02);
+}
+
+.FreelancerUpdateService form button {
   cursor: pointer;
   outline: none;
   border: none;
   border-radius: 30px;
-  background-color: var(--color-orange);
+  background: linear-gradient(135deg, #ff8c00, #e67e22);
   color: white;
-  padding: 10px 55px;
+  padding: 12px 60px;
   font-size: 16px;
-  margin-top: 25px;
+  font-weight: bold;
   align-self: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 5px 10px rgba(230, 126, 34, 0.3);
 }
+
+.FreelancerUpdateService form button:hover {
+  background: linear-gradient(135deg, #e67e22, #ff8c00);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
+}
+
 .FreelancerUpdateService form input[type="file"] {
   display: none;
 }
+
 .FreelancerUpdateService input::placeholder,
 .FreelancerUpdateService textarea::placeholder {
-  color: white;
+  color: rgba(100, 100, 100, 0.6);
 }
+
 .FreelancerUpdateService input:focus::placeholder,
 .FreelancerUpdateService textarea:focus::placeholder {
   opacity: 0;
   transition: 0.3s;
 }
+
+/* Responsive Design */
 @media (max-width: 930px) {
   .FreelancerUpdateService form {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    padding: 25px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .FreelancerUpdateService .updateHeader {
+    font-size: 36px;
+  }
+
+  .FreelancerUpdateService form {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .FreelancerUpdateService form input,
+  .FreelancerUpdateService form textarea {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .FreelancerUpdateService form button {
+    padding: 10px 40px;
+    font-size: 14px;
   }
 }
 /* End Update Service */
+
 
 /* Start Profile Section */
 .Profile .section {
@@ -1937,6 +2015,8 @@ nav button a {
   }
 }
 /* End Profile Section */
+
+
 
 /* Start Chat Section */
 .Chat .section {
