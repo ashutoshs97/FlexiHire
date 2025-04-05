@@ -239,12 +239,12 @@ export default function ServiceDetails({ type }) {
                                             </div>
                                             {type == 1 ?
                                                 <div className="service-price">
-                                                    Price: {data.selectedService.price} $
+                                                    Rate per Hour: {data.selectedService.price} ₹
                                                 </div>
                                                 :
                                                 <div className="service-price-provider">
                                                     <div className="price">
-                                                        Price {data.selectedService.price} $
+                                                        Rate per Hour {data.selectedService.price} ₹
                                                     </div>
                                                     <div className="provider">
                                                         <span>Service Provided By</span>
@@ -281,7 +281,7 @@ export default function ServiceDetails({ type }) {
                                     </div>
                                     <div className="service-price-provider">
                                         <div className="price">
-                                            Price {data.clientOrderInfo.serviceInfo.price} $
+                                            Rate per Hour {data.clientOrderInfo.serviceInfo.price} ₹
                                         </div>
                                         <div className="provider">
                                             <span>Service Provided By</span>

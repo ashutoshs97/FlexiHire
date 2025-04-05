@@ -79,7 +79,7 @@ export default function FreelancerServices() {
                     </div>
                   </div>
                   <div className="servicePrice">
-                    Price: {service.price} $
+                    Rate per hour: {service.price} ₹
                   </div>
                 </div>
               )) : <div className='noServices'>No Service for the moment</div>}

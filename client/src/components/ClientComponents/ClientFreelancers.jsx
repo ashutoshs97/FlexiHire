@@ -68,7 +68,7 @@ export default function ClientServices() {
           <div className="section">
             <div className="buttons">
               <select onChange={e => setSort(e.target.value)}>
-                <option value="price">Sort By : Price</option>
+                <option value="price">Sort By : Rate per Hour</option>
                 <option value="rating">Sort By : Rating</option>
               </select>
               <select onChange={e => setOrder(e.target.value)}>
@@ -104,7 +104,7 @@ export default function ClientServices() {
                 </div>
                 <hr />
                 <div className="servicePrice">
-                  Price: {service.price} $
+                  Rate per Hour: {service.price} ₹
                 </div>
               </div>) : <div className='noServices'>No Service for the moment</div>}
             </div>

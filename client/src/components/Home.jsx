@@ -89,7 +89,7 @@ export default function Home() {
                             Services
                         </div>
                         <div className="service">
-                            <div className="service-headline">Web Developement</div>
+                            <div className="service-headline">Web Development</div>
                             <div className="service-description">
                                 <div data-aos="fade-right" >
                                     <img src={webDeveloperService} alt="Web Developer Image" />
@@ -112,7 +112,7 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="service">
-                            <div className="service-headline">Mobile Developement</div>
+                            <div className="service-headline">Mobile Development</div>
                             <div className="service-description">
                                 <div data-aos="fade-right">
                                     <img src={mobileService} alt="Mobile Developer Image" />

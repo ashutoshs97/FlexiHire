@@ -143,7 +143,7 @@ export default function FreelancerUpdateService() {
                                 <textarea name="description" maxLength={1050} id="description" onChange={e => setDescription(e.target.value)} value={description} placeholder="Enter Description"></textarea>
                             </div>
                             <div className="form-section">
-                                <label htmlFor="price">Price</label>
+                                <label htmlFor="price">Rate per Hour ₹</label>
                                 <input type="text" name="price" placeholder="256" onChange={e => setPrice(e.target.value)} value={price} id="price" />
                             </div>
                             <div className="form-section">
