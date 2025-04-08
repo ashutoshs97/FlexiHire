@@ -46,17 +46,17 @@ export default function FreelancerCreateService() {
     ) {
       toast.error("Fill The Form");
     } else {
-      if (!/^[a-zA-Z0-9\s\-\,\(\)]{20,}$/.test(myForm.gig)) {
+      if (!/^[a-zA-Z0-9\s\-\,\(\)]{10,}$/.test(myForm.gig)) {
         err.push(
-          "Gig invalid. It must contain letters and more than 20 caracters"
+          "Gig invalid. It must contain letters and more than 10 characters"
         );
       }
       if (
         !/^.*[a-zA-Z]+.*$/gm.test(myForm.description) ||
-        myForm.description.length < 20
+        myForm.description.length < 10
       ) {
         err.push(
-          "Description invalid. It must contain letters and more than 20 caracters"
+          "Description invalid. It must contain letters and more than 10 characters"
         );
       }
       if (!/^\d+$/.test(myForm.price) || parseFloat(myForm.price) < 5) {

@@ -39,7 +39,7 @@ export default function Home() {
             err.push('Email invalid. It must be in the format example@example.com');
         }
         if (myForm.message.length < 10) {
-            err.push('Message Should Contain More Than 10 Caracters')
+            err.push('Message Should Contain More Than 10 Characters')
         }
         if ((myForm.fullName == "" && myForm.email == "" && myForm.message.value == "") || err.length != 0) {
             if (myForm.fullName == "" && myForm.email == "" && message.current.value == "") {

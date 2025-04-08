@@ -32,7 +32,7 @@ export default function ServiceDetails({ type }) {
             err.push('You should choose a star at least');
         }
         if (testimonial.current.value.length > 120 || !/^.*[a-zA-Z]+.*$/.test(testimonial.current.value)) {
-            err.push('The testimonial should contain 120 caracters or less');
+            err.push('The testimonial should contain 120 Characters or less');
         }
         if (err.length != 0) {
             toast.error(

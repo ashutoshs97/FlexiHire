@@ -60,11 +60,11 @@ export default function FreelancerUpdateService() {
         if (myForm.gig == "" && myForm.description == "" && myForm.price == "" && myForm.image.length == 0) {
             toast.error("Fill The Form");
         } else {
-            if (!/^[a-zA-Z0-9\s\-\,\(\)]{20,}$/.test(myForm.gig)) {
-                err.push('Gig invalid. It must contain letters and more than 20 caracters')
+            if (!/^[a-zA-Z0-9\s\-\,\(\)]{10,}$/.test(myForm.gig)) {
+                err.push('Gig invalid. It must contain letters and more than 10 characters')
             }
-            if (!/^.*[a-zA-Z]+.*$/mg.test(myForm.description) || myForm.description.length < 20) {
-                err.push('Description invalid. It must contain letters and more than 20 caracters')
+            if (!/^.*[a-zA-Z]+.*$/mg.test(myForm.description) || myForm.description.length < 10) {
+                err.push('Description invalid. It must contain letters and more than 10 characters')
             }
             if (isNaN(parseFloat(myForm.price)) || parseFloat(myForm.price) < 5) {
                 err.push('Price Invalid. It must be a number greater or equal to 5');

@@ -36,7 +36,7 @@ export default function Login() {
             err.push('Username invalid. It must only contain letters, numbers, and underscores')
         }
         if (password.current.value.length < 8) {
-            err.push('Password invalid. It must be more than 8 caracters')
+            err.push('Password invalid. It must be more than 8 Characters')
         }
         if (err.length !== 0) {
             toast.error(
