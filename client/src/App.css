@@ -447,7 +447,7 @@ nav button a {
 
 .Home .contact-us input,
 .Home .contact-us textarea {
-  color: white;
+  color: rgb(129, 129, 129);
   background-color: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(254, 171, 94, 0.3);
   padding: 17px 20px;
