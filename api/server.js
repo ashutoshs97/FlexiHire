@@ -1,29 +1,46 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
 const cors = require("cors");
-const port = process.env.PORT || 3001;
-const MongoConnection = require("./config/database");
-const userRoutes = require("./routes/UserRoutes");
-const freelancerRoutes = require("./routes/FreelancerRoutes");
-const clientRoutes = require("./routes/ClientRoutes");
-const chatRoutes = require("./routes/ChatRoutes");
 const bodyParser = require("body-parser");
 
+const app = express();
+const port = process.env.PORT || 3001;
+
+const MongoConnection = require("./config/database");
+
+// ✅ CORS Configuration (Allow frontend to connect)
+app.use(cors({
+  origin: "https://flexihire.vercel.app", // ✅ Your frontend Vercel domain
+  credentials: true
+}));
+
+// ✅ Body Parser for JSON
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+
+// ✅ Connect MongoDB
 MongoConnection();
 
-app.use("/user", userRoutes);
-app.use("/freelancer", freelancerRoutes);
-app.use("/client", clientRoutes);
-app.use("/chat", chatRoutes);
+// ✅ Routes
+app.use("/user", require("./routes/UserRoutes"));
+app.use("/freelancer", require("./routes/FreelancerRoutes"));
+app.use("/client", require("./routes/ClientRoutes"));
+app.use("/chat", require("./routes/ChatRoutes"));
 
+// ✅ Static Files
 app.use("/ProfilePic", express.static(__dirname + "/uploads/Users_imgs"));
 app.use("/ServicePic", express.static(__dirname + "/uploads/UsersServices"));
 
+// ✅ Default Route for Testing (optional)
+app.get("/", (req, res) => {
+  res.send("FlexiHire backend running ✅");
+});
+
+// ✅ Server Start
 app.listen(port, (err) => {
-  if (err) console.log("Server Error :" + err.message);
-  else console.log("Server Runnig on Port: " + port);
+  if (err) {
+    console.error("❌ Server Error:", err.message);
+  } else {
+    console.log("✅ Server running on Port:", port);
+  }
 });
