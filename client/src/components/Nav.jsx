@@ -11,6 +11,9 @@ export default function Nav() {
     const hamburgerRef = useRef();
     const navRef = useRef();
 
+    // Use environment variable for the backend URL
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
     const handleProfile = () => {
         setIsDropdownOpen(false);
         if (localStorage.getItem('userInfo')) {
@@ -58,7 +61,7 @@ export default function Nav() {
                         ) : (
                             <div className="user-menu">
                                 <img 
-                                    src={avatar === 'no-image.png' ? noImage : `http://localhost:3001/ProfilePic/${avatar}`} 
+                                    src={avatar === 'no-image.png' ? noImage : `${API_URL}/ProfilePic/${avatar}`} 
                                     alt="Profile" 
                                     className="user-avatar"
                                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}

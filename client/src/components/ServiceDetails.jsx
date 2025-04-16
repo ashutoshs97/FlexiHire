@@ -8,389 +8,201 @@ import { showService } from '../Redux/FreelancerSlice';
 import { toast } from 'react-toastify';
 import { makeOrder, makeTestimonial, orderInfo, serviceInfo, updateOrderStatus } from '../Redux/ClientSlice';
 import FreelancerMenu from './FreelancerComponents/FreelancerMenu';
-import Slider from './Slider';
-import noImage from "../../src/assets/Images/no-image.png";
-import ClientMenu from './ClientComponents/ClientMenu';
-import Loading from './Loading';
-// import PayPal from './PayPal';
+import Loading from './Loading'; // Ensure to import Loading component
+import Slider from './Slider'; // Ensure to import Slider component
+import noImage from '../assets/no-image.png'; // Ensure to import noImage placeholder
 
 export default function ServiceDetails({ type }) {
-    const { id, serviceId } = useParams();
-    const [loading, setLoading] = useState(true);
-    const { token, avatar } = useSelector(state => state.user);
-    const { data } = useSelector(type == 1 ? (state => state.freelancer) : (state => state.client));
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const testimonial = useRef();
-    const [starNumber, setStarNumber] = useState(0);
-    const [hoverStar, setHoverStar] = useState(undefined);
+  const { id, serviceId } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [starNumber, setStarNumber] = useState(0);
+  const [hoverStar, setHoverStar] = useState(undefined);
+  const { token, avatar } = useSelector((state) => state.user);
+  const { data } = useSelector(type === 1 ? (state) => state.freelancer : (state) => state.client);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const testimonial = useRef();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        let err = [];
-        if (parseInt(starNumber) < 1 || parseInt(starNumber) > 5 || isNaN(parseInt(starNumber))) {
-            err.push('You should choose a star at least');
-        }
-        if (testimonial.current.value.length > 120 || !/^.*[a-zA-Z]+.*$/.test(testimonial.current.value)) {
-            err.push('The testimonial should contain 120 Characters or less');
-        }
-        if (err.length != 0) {
-            toast.error(
-                <div>
-                    {err.map((e, i) => <p key={i}>{e}</p>)}
-                </div>
-            );
-        } else {
-            setLoading(true);
-            dispatch(makeTestimonial({ orderId: serviceId, text: testimonial.current.value.trim(), rating: starNumber })).unwrap().then(data => {
-                setTimeout(() => {
-                    setLoading(false);
-                    if (data.status == 200) {
-                        toast.success(data.msg);
-                        navigate(`/dashboard/client/${id}/orders`);
-                    } else if (data.status === 403) {
-                        toast.error(data.msg);
-                        navigate('/login');
-                    } else if (data.status === 404) {
-                        navigate('/404');
-                    } else {
-                        toast.error(data.msg);
-                        fetchData();
-                    }
-                }, 1000);
-            }).catch((rejectedValueOrSerializedError) => {
-                setTimeout(() => {
-                    setLoading(false);
-                    toast.error(rejectedValueOrSerializedError);
-                    fetchData();
-                }, 1000);
-            });
-        }
-    };
+  // Use environment variable for the backend URL
+  const API_URL = process.env.REACT_APP_API_URL || 'https://flexihire-immj.onrender.com';
 
-    const fetchData = () => {
-        if (type == 1) {
-            dispatch(showService(serviceId)).unwrap().then(data => {
-                setTimeout(() => {
-                    setLoading(false);
-                    if (data.status == 404) {
-                        navigate('/404');
-                    }
-                    if (data.status == 505) {
-                        toast.error(data.msg);
-                    }
-                }, 1000);
-            }).catch((rejectedValueOrSerializedError) => {
-                setTimeout(() => {
-                    setLoading(false);
-                    toast.error(rejectedValueOrSerializedError);
-                }, 1000);
-            });
-        }
-        if (type == 2) {
-            dispatch(serviceInfo(serviceId)).unwrap().then(data => {
-                setTimeout(() => {
-                    setLoading(false);
-                    if (data.status == 404) {
-                        navigate('/404');
-                    }
-                    if (data.status == 505) {
-                        toast.error(data.msg);
-                    }
-                }, 1000);
-            }).catch((rejectedValueOrSerializedError) => {
-                setTimeout(() => {
-                    setLoading(false);
-                    toast.error(rejectedValueOrSerializedError);
-                }, 1000);
-            });
-        }
-        if (type == 3) {
-            dispatch(orderInfo(serviceId)).unwrap().then(data => {
-                setTimeout(() => {
-                    setLoading(false);
-                    if (data.status == 404) {
-                        navigate('/404');
-                    }
-                    if (data.status == 505) {
-                        toast.error(data.msg);
-                    }
-                }, 1000);
-            }).catch((rejectedValueOrSerializedError) => {
-                setTimeout(() => {
-                    setLoading(false);
-                    toast.error(rejectedValueOrSerializedError);
-                }, 1000);
-            });
-        }
-    };
+  useEffect(() => {
+    if (!tokenExists(token)) {
+      navigate('/login');
+      return;
+    }
+    fetchData();
+  }, [serviceId]);
 
-    useEffect(() => {
-        tokenExists(token, navigate, dispatch).then(data => (data == false || JSON.parse(localStorage.getItem('userInfo'))._id != id || window.location.href.slice(32).split('/')[0] != JSON.parse(localStorage.getItem('userInfo')).role) && navigate("/login"));
-        fetchData();
-    }, []);
-
-    const handleOrder = () => {
-        setLoading(true);
-        dispatch(makeOrder(serviceId)).unwrap().then(data => {
-            setTimeout(() => {
-                setLoading(false);
-                if (data.status == 200) {
-                    toast.success(data.msg);
-                    navigate(`/dashboard/client/${id}/orders`);
-                }
-                else if (data.status == 400) {
-                    toast.info(data.msg);
-                    fetchData();
-                }
-                else if (data.status == 403) {
-                    toast.error(data.msg);
-                    navigate('/login');
-                }
-                else if (data.status == 404) {
-                    toast.error(data.msg);
-                    navigate('/404');
-                }
-                else {
-                    toast.error(data.msg);
-                    fetchData();
-                }
-            }, 1000);
-        }).catch((rejectedValueOrSerializedError) => {
-            setTimeout(() => {
-                setLoading(false);
-                toast.error(rejectedValueOrSerializedError);
-                fetchData();
-            }, 1000);
-        });
-    };
-
-    const handleUpdate = (e) => {
-        setLoading(true);
-        const status = e.target.name;
-        dispatch(updateOrderStatus({ orderId: serviceId, status })).unwrap().then(data => {
-            setTimeout(() => {
-                setLoading(false);
-                if (data.status == 200) {
-                    toast.success(data.msg);
-                    navigate(`/dashboard/client/${id}/orders`);
-                }
-                else if (data.status == 400) {
-                    toast.error(data.msg);
-                    fetchData();
-                }
-                else if (data.status == 403) {
-                    toast.error(data.msg);
-                    navigate('/login');
-                }
-                else if (data.status == 404) {
-                    toast.error(data.msg);
-                    navigate('/404');
-                }
-                else {
-                    toast.error(data.msg);
-                    fetchData();
-                }
-            }, 1000);
-        }).catch((rejectedValueOrSerializedError) => {
-            setTimeout(() => {
-                setLoading(false);
-                toast.error(rejectedValueOrSerializedError);
-                fetchData();
-            }, 1000);
-        });
-    };
-    
-    const handlePayment = async () => {
-        setLoading(true);
-    
-        const clientId = 'AXtbcf2r77jeH2NUQFXEWwnDYEygX-hpCvkTJSom1t1XCtSmkwl3o1mdGyXnBVf3LPd5diU-FS3Nd1ZW';
-    
-        const scriptLoaded = await new Promise(resolve => {
-            if (window.paypal) {
-                resolve(true);
-                return;
-            }
-            const script = document.createElement('script');
-            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD`;
-            script.onload = () => resolve(true);
-            script.onerror = () => resolve(false);
-            document.body.appendChild(script);
-        });
-    
-        if (!scriptLoaded) {
-            toast.error('Failed to load PayPal SDK. Check your internet connection.');
+  const fetchData = () => {
+    if (type === 1) {
+      dispatch(showService(serviceId))
+        .unwrap()
+        .then((data) => {
+          setTimeout(() => {
             setLoading(false);
-            return;
-        }
-    
-        const price = 2000; // 💵 Hardcoded $2000
-    
-        window.paypal.Buttons({
-            createOrder: (data, actions) => {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: price.toFixed(2) // Always format price properly
-                        }
-                    }]
-                });
-            },
-            onApprove: async (data, actions) => {
-                try {
-                    const order = await actions.order.capture();
-                    console.log("✅ Payment successful:", order);
-                    toast.success('Payment Successful!');
-                    navigate(`/dashboard/client/${id}/orders`);
-                } catch (err) {
-                    console.error("❌ Capture failed:", err);
-                    toast.error('Payment capture failed!');
-                } finally {
-                    setLoading(false);
-                }
-            },
-            onError: (err) => {
-                console.error("❌ PayPal Error:", err);
-                toast.error('Payment failed! Please try again.');
-                setLoading(false);
+            if (data.status === 404) {
+              navigate('/404');
             }
-        }).render('#paypal-button-container');
-    };
-    
-    
+          }, 1000);
+        })
+        .catch((error) => {
+          setTimeout(() => {
+            setLoading(false);
+            toast.error(error.message || 'Failed to fetch service details.');
+          }, 1000);
+        });
+    } else if (type === 2) {
+      dispatch(serviceInfo(serviceId))
+        .unwrap()
+        .then((data) => {
+          setTimeout(() => {
+            setLoading(false);
+            if (data.status === 404) {
+              navigate('/404');
+            } else if (data.status === 505) {
+              toast.error(data.msg);
+            }
+          }, 1000);
+        })
+        .catch((error) => {
+          setTimeout(() => {
+            setLoading(false);
+            toast.error(error.message || 'Failed to fetch service information.');
+          }, 1000);
+        });
+    }
+  };
 
-    return (
-        <>
-            {loading && <Loading />}
-            <div className='ServiceDetail'>
-                <div className="container">
-                    <div className="section">
-                        {
-                            type == 1 || type == 2 ?
-                                <>
-                                    {
-                                        data?.selectedService &&
-                                        <>
-                                            <div className="mySwiperContainer">
-                                                <Slider images={data.selectedService.images.split('|')} />
-                                            </div>
-                                            <div className="service-title">
-                                                {data.selectedService.title}
-                                            </div>
-                                            <div className="service-description">
-                                                {data.selectedService.description.split('\n').map((line, i) =>
-                                                    <p key={i}>{line}</p>
-                                                )}
-                                            </div>
-                                            {type == 1 ?
-                                                <div className="service-price">
-                                                    Rate per Hour: {data.selectedService.price} ₹
-                                                </div>
-                                                :
-                                                <div className="service-price-provider">
-                                                    <div className="price">
-                                                        Rate per Hour: {data.selectedService.price} ₹
-                                                    </div>
-                                                    <div className="provider">
-                                                        <span>Service Provided By</span>
-                                                        <img src={data.selectedService.userId.image === 'no-image.png' ? noImage : `http://localhost:3001/ProfilePic/${data.selectedService.userId.image}`} alt="Profile Picture" />
-                                                    </div>
-                                                </div>
-                                            }
-                                            {type == 1 ?
-                                                <HashLink className="go-back-button" to={`/dashboard/freelancer/${id}/services`}><button>Go Back</button></HashLink>
-                                                :
-                                                type == 2 &&
-                                                <>
-                                                    <div className="bottom-buttons">
-                                                        <HashLink className="go-back-button" to={`/dashboard/client/${id}/services`}><button>Go Back</button></HashLink>
-                                                        <button onClick={handleOrder}>Make Order</button>
-                                                    </div>
-                                                </>
-                                            }
-                                        </>
-                                    }
-                                </>
-                                : data?.clientOrderInfo &&
-                                <>
-                                    <div className="mySwiperContainer">
-                                        <Slider images={data.clientOrderInfo.serviceInfo.images.split('|')} />
-                                    </div>
-                                    <div className="service-title">
-                                        {data.clientOrderInfo.serviceInfo.title}
-                                    </div>
-                                    <div className="service-description">
-                                        {data.clientOrderInfo.serviceInfo.description.split('\n').map((line, i) =>
-                                            <p key={i}>{line}</p>
-                                        )}
-                                    </div>
-                                    <div className="service-price-provider">
-                                        <div className="price">
-                                            Rate per Hour {data.clientOrderInfo.serviceInfo.price} ₹
-                                        </div>
-                                        <div className="provider">
-                                            <span>Service Provided By</span>
-                                            <img src={data.clientOrderInfo.serviceUserInfo.image === 'no-image.png' ? noImage : `http://localhost:3001/ProfilePic/${data.clientOrderInfo.serviceUserInfo.image}`} alt="Profile Picture" />
-                                        </div>
-                                    </div>
-                                    {
-                                        data.clientOrderInfo.status == 'OnGoing' ?
-                                            <div className="bottom-buttons">
-                                                <HashLink className="go-back-button" to={`/dashboard/client/${id}/orders`}><button>Go Back</button></HashLink>
-                                                <div id="paypal-button-container"></div>
-                                                <button className='payment-button' onClick={handlePayment}>Make Payment</button>
-                                                <button className='completed' name='Completed' onClick={e => handleUpdate(e)}>Completed</button>
-                                                <button className='cancelled' name='Cancelled' onClick={e => handleUpdate(e)}>Cancelled</button>
-                                            </div>
-                                            :
-                                            (data.clientOrderInfo.status == 'Completed' || data.clientOrderInfo.status == 'Cancelled') &&
-                                            <>
-                                                <div className="testimonialForm">
-                                                    <form onSubmit={e => handleSubmit(e)}>
-                                                        <img src={avatar === 'no-image.png' ? noImage : `http://localhost:3001/ProfilePic/${avatar}`} alt="Profile Picture" />
-                                                        <div className="form-input">
-                                                            <div className="testimonialHeader">
-                                                                Add Testimonial
-                                                            </div>
-                                                            <div className="stars">
-                                                                {Array(5).fill().map((_, index) =>
-                                                                    starNumber >= index + 1 || hoverStar >= index + 1 ?
-                                                                        <AiFillStar
-                                                                            key={index}
-                                                                            style={{ color: "var(--color-orange)", width: '30px', height: '30px', cursor: 'pointer' }}
-                                                                            onMouseOver={() => !starNumber && setHoverStar(index + 1)}
-                                                                            onMouseLeave={() => setHoverStar(undefined)}
-                                                                            onClick={() => setStarNumber(index + 1)} />
-                                                                        :
-                                                                        <AiOutlineStar
-                                                                            key={index}
-                                                                            style={{ color: "var(--color-orange)", width: '30px', height: '30px', cursor: 'pointer' }}
-                                                                            onMouseOver={() => !starNumber && setHoverStar(index + 1)}
-                                                                            onMouseLeave={() => setHoverStar(undefined)}
-                                                                            onClick={() => setStarNumber(index + 1)} />
-                                                                )}
-                                                            </div>
-                                                            <textarea name="testtimonialText" ref={testimonial} placeholder='Write your opinion about the service' id="testtimonialText" maxLength={130}></textarea>
-                                                            <button>Send</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div className="bottom-buttons">
-                                                    <HashLink className="go-back-button" to={`/dashboard/client/${id}/orders`}><button>Go Back</button></HashLink>
-                                                    <div className={data.clientOrderInfo.status == "Completed" ? "statusCompleted" : "statusCancelled"}>{data.clientOrderInfo.status}</div>
-                                                </div>
-                                            </>
-                                    }
-                                </>
-                        }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let err = [];
+    if (parseInt(starNumber) < 1 || parseInt(starNumber) > 5 || isNaN(parseInt(starNumber))) {
+      err.push('You should choose at least one star.');
+    }
+    if (testimonial.current.value.length > 120 || !/^.*[a-zA-Z]+.*$/.test(testimonial.current.value)) {
+      err.push('The testimonial should contain 120 characters or less and at least some text.');
+    }
+    if (err.length !== 0) {
+      toast.error(
+        <div>
+          {err.map((e, i) => (
+            <p key={i}>{e}</p>
+          ))}
+        </div>
+      );
+    } else {
+      setLoading(true);
+      dispatch(makeTestimonial({
+        serviceId,
+        testimonial: testimonial.current.value,
+        stars: starNumber
+      }))
+        .unwrap()
+        .then(() => {
+          toast.success('Testimonial added successfully!');
+          fetchData();
+        })
+        .catch((error) => {
+          toast.error(error.message || 'Failed to add testimonial.');
+          setLoading(false);
+        });
+    }
+  };
+
+  return (
+    <>
+      {loading && <Loading />}
+      <div className="ServiceDetail">
+        <div className="container">
+          {type === 1 && <FreelancerMenu />}
+          <div className="section">
+            {type === 1 || type === 2 ? (
+              data?.selectedService && (
+                <>
+                  <div className="mySwiperContainer">
+                    <Slider images={data.selectedService.images?.split('|') || []} />
+                  </div>
+                  <div className="service-title">{data.selectedService.title}</div>
+                  <div className="service-description">
+                    {data.selectedService.description.split('\n').map((line, i) => (
+                      <p key={i}>{line}</p>
+                    ))}
+                  </div>
+                  {type === 1 ? (
+                    <div className="service-price">
+                      <h3>Price: ${data.selectedService.price}</h3>
+                      <p>Delivery Time: {data.selectedService.deliveryTime} days</p>
                     </div>
-                    {type == 1 ?
-                        <FreelancerMenu active="services" />
-                        :
-                        <ClientMenu active="freelancers" />
-                    }
-                </div>
-            </div>
-        </>
-    );
+                  ) : (
+                    <div className="service-actions">
+                      <button 
+                        className="btn-primary"
+                        onClick={() => dispatch(makeOrder(serviceId))
+                          .unwrap()
+                          .then(() => {
+                            toast.success('Order placed successfully!');
+                            navigate('/client/orders');
+                          })
+                          .catch(error => toast.error(error.message || 'Failed to place order'))
+                        }
+                      >
+                        Order Now (${data.selectedService.price})
+                      </button>
+                    </div>
+                  )}
+                  {type === 2 && (
+                    <div className="testimonial-form">
+                      <form onSubmit={handleSubmit}>
+                        <img
+                          src={avatar === 'no-image.png' ? noImage : `${API_URL}/ProfilePic/${avatar}`}
+                          alt="Profile"
+                          className="profile-pic"
+                        />
+                        <div className="form-input">
+                          <div className="testimonialHeader">Add Testimonial</div>
+                          <div className="stars">
+                            {Array(5).fill().map((_, index) =>
+                              starNumber >= index + 1 || hoverStar >= index + 1 ? (
+                                <AiFillStar
+                                  key={index}
+                                  className="star-icon filled"
+                                  onMouseOver={() => !starNumber && setHoverStar(index + 1)}
+                                  onMouseLeave={() => setHoverStar(undefined)}
+                                  onClick={() => setStarNumber(index + 1)}
+                                />
+                              ) : (
+                                <AiOutlineStar
+                                  key={index}
+                                  className="star-icon"
+                                  onMouseOver={() => !starNumber && setHoverStar(index + 1)}
+                                  onMouseLeave={() => setHoverStar(undefined)}
+                                  onClick={() => setStarNumber(index + 1)}
+                                />
+                              )
+                            )}
+                          </div>
+                          <textarea
+                            name="testimonialText"
+                            ref={testimonial}
+                            placeholder="Write your opinion about the service (max 120 characters)"
+                            id="testimonialText"
+                            maxLength={120}
+                            required
+                          />
+                          <button type="submit" className="btn-primary">
+                            Submit Testimonial
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  )}
+                </>
+              )
+            ) : null}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

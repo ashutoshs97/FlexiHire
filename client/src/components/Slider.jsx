@@ -4,6 +4,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+// Use environment variable with fallback
+const API_BASE_URL = process.env.REACT_APP_API_URL || "https://your-render-backend.onrender.com";
+
 export default function Slider({ images }) {
     return (
         <Swiper
@@ -14,9 +17,18 @@ export default function Slider({ images }) {
             navigation
             pagination={{ clickable: true }}
         >
-            {images.map((imageSrc, i) => <SwiperSlide key={i}>
-                <img src={`http://localhost:3001/ServicePic/${imageSrc}`} alt="" />
-            </SwiperSlide>)}
+            {images.map((imageSrc, i) => (
+                <SwiperSlide key={i}>
+                    <img
+                        src={`${API_BASE_URL}/ServicePic/${imageSrc}`}
+                        alt="service"
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "/fallback-image.png"; // Optional fallback
+                        }}
+                    />
+                </SwiperSlide>
+            ))}
         </Swiper>
-    )
+    );
 }

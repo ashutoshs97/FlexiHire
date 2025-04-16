@@ -1,13 +1,11 @@
 import ClientMenu from "./ClientMenu";
 import { HashLink } from 'react-router-hash-link';
-import noImage from '../../assets/Images/no-image.png'
+import noImage from '../../assets/Images/no-image.png';
 import Slider from './../Slider';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getOrders } from './../../Redux/ClientSlice';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
 import { tokenExists } from './../../Redux/UserSlice';
 import { toast } from 'react-toastify';
 import Loading from './../Loading';
@@ -16,57 +14,58 @@ import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { AiOutlinePlayCircle } from 'react-icons/ai';
 import { MdOutlineFilterAltOff } from 'react-icons/md';
 
-
-
-
-
 export default function ClientOrders() {
-    const [loading, setLoading] = useState(true)
-    const [filter, setFilter] = useState("All")
-    const [newdata, setNewData] = useState([])
-    const { id } = useParams()
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const { token } = useSelector(state => state.user)
-    const { data } = useSelector(state => state.client)
+    const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState("All");
+    const [newdata, setNewData] = useState([]);
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { token } = useSelector(state => state.user);
+    const { data } = useSelector(state => state.client);
 
     useEffect(() => {
-        tokenExists(token, navigate, dispatch).then(data => (data == false || JSON.parse(localStorage.getItem('userInfo')).role != "client" || JSON.parse(localStorage.getItem('userInfo'))._id != id) && navigate("/login"))
-    }, [])
+        // Check if token exists and ensure the correct user role and ID before loading the page
+        tokenExists(token, navigate, dispatch).then(data => {
+            if (data === false || JSON.parse(localStorage.getItem('userInfo')).role !== "client" || JSON.parse(localStorage.getItem('userInfo'))._id !== id) {
+                navigate("/login");
+            }
+        });
+    }, [token, navigate, dispatch, id]);
 
     useEffect(() => {
         dispatch(getOrders()).unwrap().then(data => {
             setTimeout(() => {
-                setLoading(false)
-                if (data.status == 200) {
-                    setNewData(data.clientOrders)
+                setLoading(false);
+                if (data.status === 200) {
+                    setNewData(data.clientOrders);
                 }
-                if (data.status == 404 || data.status == 403) {
-                    toast.error(data.msg)
-                    navigate('/login')
+                if (data.status === 404 || data.status === 403) {
+                    toast.error(data.msg);
+                    navigate('/login');
                 }
-                if (data.status == 505) {
-                    toast.error(data.msg)
+                if (data.status === 505) {
+                    toast.error(data.msg);
                 }
             }, 1000);
         }).catch((rejectedValueOrSerializedError) => {
             setTimeout(() => {
-                setLoading(false)
-                toast.error(rejectedValueOrSerializedError)
+                setLoading(false);
+                toast.error(rejectedValueOrSerializedError);
             }, 1000);
-        })
-    }, [])
+        });
+    }, [dispatch, navigate]);
 
     useEffect(() => {
         if (data?.clientOrders) {
-            if (filter == "All") {
-                setNewData(data.clientOrders)
+            if (filter === "All") {
+                setNewData(data.clientOrders);
             } else {
-                const filteredData = data.clientOrders.filter(order => order.status == filter)
-                setNewData(filteredData)
+                const filteredData = data.clientOrders.filter(order => order.status === filter);
+                setNewData(filteredData);
             }
         }
-    }, [filter, data])
+    }, [filter, data]);
 
     return (
         <>
@@ -78,29 +77,28 @@ export default function ClientOrders() {
                             My Orders
                         </div>
                         <div className="filterOrders">
-                            <div className={filter == "All" ? "filter all active" : "filter all"} onClick={e => setFilter("All")}>
+                            <div className={filter === "All" ? "filter all active" : "filter all"} onClick={() => setFilter("All")}>
                                 <MdOutlineFilterAltOff /> All
                             </div>
-                            <div className={filter == "OnGoing" ? "filter ongoing active" : "filter ongoing"} onClick={e => setFilter("OnGoing")}>
+                            <div className={filter === "OnGoing" ? "filter ongoing active" : "filter ongoing"} onClick={() => setFilter("OnGoing")}>
                                 <AiOutlinePlayCircle /> Ongoing
                             </div>
-                            <div className={filter == "Completed" ? "filter completed active" : "filter completed"} onClick={e => setFilter("Completed")}>
+                            <div className={filter === "Completed" ? "filter completed active" : "filter completed"} onClick={() => setFilter("Completed")}>
                                 <AiOutlineCheckCircle /> Completed
                             </div>
-                            <div className={filter == "Cancelled" ? "filter cancelled active" : "filter cancelled"} onClick={e => setFilter("Cancelled")}>
+                            <div className={filter === "Cancelled" ? "filter cancelled active" : "filter cancelled"} onClick={() => setFilter("Cancelled")}>
                                 <HiOutlineXCircle /> Cancelled
                             </div>
                         </div>
                         <div className="services">
                             {
-                                newdata && newdata.length != 0 ? newdata.map(order =>
-
+                                newdata && newdata.length !== 0 ? newdata.map(order =>
                                     <div key={order._id} className="service">
                                         <div className="slider">
                                             <Slider images={order.serviceInfo.images.split('|')} />
                                         </div>
                                         <div className="serviceHeader">
-                                            <img src={order.serviceUserInfo.image === 'no-image.png' ? noImage : `http://localhost:3001/ProfilePic/${order.serviceUserInfo.image}`} alt="" />
+                                            <img src={order.serviceUserInfo.image === 'no-image.png' ? noImage : `${process.env.REACT_APP_API_URL}/ProfilePic/${order.serviceUserInfo.image}`} alt="" />
                                             <span>{order.serviceUserInfo.username}</span>
                                         </div>
                                         <div className="serviceBody">
@@ -117,7 +115,9 @@ export default function ClientOrders() {
                                                     </svg>
                                                     <span>{order.serviceRating !== 0 ? order.serviceRating : "Not Rated"}</span>
                                                 </div>
-                                                <HashLink to={`/dashboard/client/${id}/order/show/${order._id}`}> <button>See More</button></HashLink>
+                                                <HashLink to={`/dashboard/client/${id}/order/show/${order._id}`}>
+                                                    <button>See More</button>
+                                                </HashLink>
                                             </div>
                                         </div>
                                         <hr />
@@ -126,11 +126,10 @@ export default function ClientOrders() {
                                         </div>
                                         <hr />
                                         <div className="serviceState">
-                                            State: {order.status == "OnGoing" ? <span className="ongoing">OnGoing</span> : order.status == "Cancelled" ? <span className="cancelled">Cancelled</span> : <span className="completed">Completed</span>}
+                                            State: {order.status === "OnGoing" ? <span className="ongoing">OnGoing</span> : order.status === "Cancelled" ? <span className="cancelled">Cancelled</span> : <span className="completed">Completed</span>}
                                         </div>
-                                    </div>)
-                                    :
-                                    <div className='noServices'>You Didn't Made An Order Yet</div>
+                                    </div>) :
+                                    <div className='noServices'>You Didn't Make An Order Yet</div>
                             }
                         </div>
                     </div>
