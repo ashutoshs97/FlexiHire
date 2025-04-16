@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from './myAxios';
 
 // Ensure the base URL is set properly from environment variables
 const baseURL = process.env.REACT_APP_API_URL;
