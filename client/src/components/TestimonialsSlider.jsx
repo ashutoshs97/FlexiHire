@@ -1,62 +1,55 @@
 import { Navigation, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import noImage from '../assets/Images/no-image.png';
+import noImage from '../assets/Images/no-image.png'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// Use environment variable with fallback
-const API_BASE_URL = process.env.REACT_APP_API_URL || "https://your-render-backend.onrender.com";
-
 export default function Testimonial({ data, role }) {
     return (
         <>
-            <Swiper
-                className="card"
-                modules={[Navigation, A11y]}
-                spaceBetween={100}
-                slidesPerView={1}
-                navigation
-            >
-                {data?.map((testimonial, i) => {
-                    const avatar =
-                        role === "freelancer"
-                            ? testimonial.clientAvatar
-                            : testimonial.freelancerAvatar;
-
-                    const username =
-                        role === "freelancer"
-                            ? testimonial.clientUsername
-                            : testimonial.freelancerUsername;
-
-                    const text =
-                        role === "freelancer"
-                            ? testimonial.text
-                            : testimonial.testimonialText;
-
-                    const imageSrc =
-                        avatar && avatar !== "no-image.png"
-                            ? `${API_BASE_URL}/ProfilePic/${avatar}`
-                            : noImage;
-
-                    return (
-                        <SwiperSlide key={testimonial.clientId || i}>
-                            <img
-                                src={imageSrc}
-                                alt="User Pic"
-                                onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = noImage;
-                                }}
-                            />
-                            <div className="info">
-                                <div className="cardHeader">{username}</div>
-                                <div className="cardDescription">{text}</div>
+            {role == "freelancer" ?
+                <Swiper
+                    className="card"
+                    modules={[Navigation, A11y]}
+                    spaceBetween={100}
+                    slidesPerView={1}
+                    navigation
+                >
+                    {data?.map((testimonial) => <SwiperSlide key={testimonial.clientId}>
+                        <img src={testimonial.clientAvatar != "no-image.png" ? `http://localhost:3001/ProfilePic/${testimonial.clientAvatar}` : noImage} alt="Client Pic" />
+                        <div className="info">
+                            <div className="cardHeader">
+                                {testimonial.clientUsername}
                             </div>
-                        </SwiperSlide>
-                    );
-                })}
-            </Swiper>
+                            <div className="cardDescription">
+                                {testimonial.text}
+                            </div>
+                        </div>
+                    </SwiperSlide>)}
+                </Swiper>
+                :
+                <Swiper
+                    className="card"
+                    modules={[Navigation, A11y]}
+                    spaceBetween={100}
+                    slidesPerView={1}
+                    navigation
+                >
+                    {data?.map((testimonial, i) => <SwiperSlide key={i}>
+                        <img src={testimonial.freelancerAvatar != "no-image.png" ? `http://localhost:3001/ProfilePic/${testimonial.freelancerAvatar}` : noImage} alt="Client Pic" />
+                        <div className="info">
+                            <div className="cardHeader">
+                                {testimonial.freelancerUsername}
+                            </div>
+                            <div className="cardDescription">
+                                {testimonial.testimonialText}
+                            </div>
+                        </div>
+                    </SwiperSlide>)}
+                </Swiper>
+            }
         </>
-    );
+
+    )
 }

@@ -1,4 +1,4 @@
-require("dotenv").config(); // Load environment variables from .env file
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -15,7 +15,7 @@ app.use(
       "https://flexihire.vercel.app", // Your Vercel frontend domain
       "http://localhost:3000" // Allow local frontend during development
     ],
-    credentials: true, // Allow cookies or authorization headers if needed
+    credentials: true,
   })
 );
 
@@ -41,11 +41,11 @@ app.get("/", (req, res) => {
   res.send("FlexiHire backend running ✅");
 });
 
-// ✅ Server Start (Listen on all interfaces)
-app.listen(port, "0.0.0.0", (err) => { // Bind to all network interfaces
+// ✅ Server Start
+app.listen(port, (err) => {
   if (err) {
     console.error("❌ Server Error:", err.message);
   } else {
-    console.log(`✅ Server running on Port: ${port}`); // Use template literals for cleaner output
+    console.log("✅ Server running on Port:", port);
   }
 });
