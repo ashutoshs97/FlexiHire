@@ -15,7 +15,7 @@ export default function Slider({ images }) {
             pagination={{ clickable: true }}
         >
             {images.map((imageSrc, i) => <SwiperSlide key={i}>
-                <img src={`http://localhost:3001/ServicePic/${imageSrc}`} alt="" />
+                <img src={`https://flexihire-immj.onrender.com/ServicePic/${imageSrc}`} alt="" />
             </SwiperSlide>)}
         </Swiper>
     )

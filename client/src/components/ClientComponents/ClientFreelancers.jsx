@@ -82,7 +82,7 @@ export default function ClientServices() {
                   <Slider images={service.images.split('|')} />
                 </div>
                 <div className="serviceHeader">
-                  <img src={service.userInfo.image === 'no-image.png' ? noImage : `http://localhost:3001/ProfilePic/${service.userInfo.image}`} alt="Profile Picture" />
+                  <img src={service.userInfo.image === 'no-image.png' ? noImage : `https://flexihire-immj.onrender.com/ProfilePic/${service.userInfo.image}`} alt="Profile Picture" />
                   <span>{service.userInfo.username}</span>
                 </div>
                 <div className="serviceBody">

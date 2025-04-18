@@ -51,7 +51,7 @@ export default function Chat({ type }) {
                 <div className="messages">
                   {data?.userConversation?.map(conversation =>
                     <div key={conversation._id} className={selectedMessage != conversation._id ? "messageSection" : "messageSection active"} onClick={() => setSelectedMessage(conversation._id)}>
-                      <img src={conversation.avatar == "no-image.png" ? noImage : `http://localhost:3001/ProfilePic/${conversation.avatar}`} alt="test image" />
+                      <img src={conversation.avatar == "no-image.png" ? noImage : `https://flexihire-immj.onrender.com/ProfilePic/${conversation.avatar}`} alt="test image" />
                       <div className="messageUserInfo">
                         <div className="messageUserName">{conversation.username}</div>
                       </div>

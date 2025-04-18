@@ -58,7 +58,7 @@ export default function Nav() {
                         ) : (
                             <div className="user-menu">
                                 <img 
-                                    src={avatar === 'no-image.png' ? noImage : `http://localhost:3001/ProfilePic/${avatar}`} 
+                                    src={avatar === 'no-image.png' ? noImage : `https://flexihire-immj.onrender.com/ProfilePic/${avatar}`} 
                                     alt="Profile" 
                                     className="user-avatar"
                                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
