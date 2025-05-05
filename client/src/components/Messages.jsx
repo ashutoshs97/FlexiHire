@@ -116,7 +116,7 @@ export default function Message({ selectedMessage }) {
             {messages?.messages?.withInfo &&
                 <>
                     <div className="selectedMessageHeader">
-                        <img src={messages?.messages?.withInfo?.avatar === "no-image.png" ? noImage : `https://flexihire-immj.onrender.com/ProfilePic/${messages?.messages?.withInfo?.avatar}`} alt="profile" />
+                        <img src={messages?.messages?.withInfo?.avatar === "no-image.png" ? noImage : `http://localhost:3001/ProfilePic/${messages?.messages?.withInfo?.avatar}`} alt="profile" />
                         <span>{messages?.messages?.withInfo?.username}</span>
                     </div>
                     <div className="messageDate">

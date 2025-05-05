@@ -4,20 +4,15 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const app = express();
-const port = process.env.PORT || 3001; // Use PORT from environment or fallback to 3001
+const port = process.env.PORT || 3001;
 
 const MongoConnection = require("./config/database");
 
 // ✅ CORS Configuration (Allow frontend to connect)
-app.use(
-  cors({
-    origin: [
-      "https://flexihire.vercel.app", // Your Vercel frontend domain
-      "http://localhost:3000" // Allow local frontend during development
-    ],
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: "https://flexihire.vercel.app", // ✅ Your frontend Vercel domain
+  credentials: true
+}));
 
 // ✅ Body Parser for JSON
 app.use(bodyParser.json());

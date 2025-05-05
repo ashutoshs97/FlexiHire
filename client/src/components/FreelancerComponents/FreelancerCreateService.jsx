@@ -159,7 +159,7 @@ export default function FreelancerCreateService() {
                 ></textarea>
               </div>
               <div className="form-section">
-                <label htmlFor="ratePerHour">Rate per Hour (₹)</label>
+                <label htmlFor="ratePerHour">Rate per Hour ($)</label>
                 <input
                   type="number"
                   name="ratePerHour"
