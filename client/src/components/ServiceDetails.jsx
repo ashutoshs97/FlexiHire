@@ -12,6 +12,7 @@ import Slider from './Slider';
 import noImage from "../../src/assets/Images/no-image.png";
 import ClientMenu from './ClientComponents/ClientMenu';
 import Loading from './Loading';
+// import PayPal from './PayPal';
 
 export default function ServiceDetails({ type }) {
     const { id, serviceId } = useParams();
@@ -199,20 +200,64 @@ export default function ServiceDetails({ type }) {
             }, 1000);
         });
     };
-
-    const handlePayment = () => {
+    
+    const handlePayment = async () => {
         setLoading(true);
-        // In a real implementation, integrate with payment gateway here
-        // For demo purposes, we'll simulate a payment process
-        toast.info('Processing payment...');
-        
-        setTimeout(() => {
+    
+        const clientId = 'AXtbcf2r77jeH2NUQFXEWwnDYEygX-hpCvkTJSom1t1XCtSmkwl3o1mdGyXnBVf3LPd5diU-FS3Nd1ZW';
+    
+        const scriptLoaded = await new Promise(resolve => {
+            if (window.paypal) {
+                resolve(true);
+                return;
+            }
+            const script = document.createElement('script');
+            script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}&currency=USD`;
+            script.onload = () => resolve(true);
+            script.onerror = () => resolve(false);
+            document.body.appendChild(script);
+        });
+    
+        if (!scriptLoaded) {
+            toast.error('Failed to load PayPal SDK. Check your internet connection.');
             setLoading(false);
-            toast.success('Payment successful!');
-            // You might want to update the order status after payment
-            // dispatch(updateOrderStatus({ orderId: serviceId, status: 'Paid' }));
-        }, 2000);
+            return;
+        }
+    
+        const price = 2000; // 💵 Hardcoded $2000
+    
+        window.paypal.Buttons({
+            createOrder: (data, actions) => {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: price.toFixed(2) // Always format price properly
+                        }
+                    }]
+                });
+            },
+            onApprove: async (data, actions) => {
+                try {
+                    const order = await actions.order.capture();
+                    console.log("✅ Payment successful:", order);
+                    toast.success('Payment Successful!');
+                    navigate(`/dashboard/client/${id}/orders`);
+                } catch (err) {
+                    console.error("❌ Capture failed:", err);
+                    toast.error('Payment capture failed!');
+                } finally {
+                    setLoading(false);
+                }
+            },
+            onError: (err) => {
+                console.error("❌ PayPal Error:", err);
+                toast.error('Payment failed! Please try again.');
+                setLoading(false);
+            }
+        }).render('#paypal-button-container');
     };
+    
+    
 
     return (
         <>
@@ -244,7 +289,7 @@ export default function ServiceDetails({ type }) {
                                                 :
                                                 <div className="service-price-provider">
                                                     <div className="price">
-                                                        Rate per Hour {data.selectedService.price} ₹
+                                                        Rate per Hour: {data.selectedService.price} ₹
                                                     </div>
                                                     <div className="provider">
                                                         <span>Service Provided By</span>
@@ -292,6 +337,7 @@ export default function ServiceDetails({ type }) {
                                         data.clientOrderInfo.status == 'OnGoing' ?
                                             <div className="bottom-buttons">
                                                 <HashLink className="go-back-button" to={`/dashboard/client/${id}/orders`}><button>Go Back</button></HashLink>
+                                                <div id="paypal-button-container"></div>
                                                 <button className='payment-button' onClick={handlePayment}>Make Payment</button>
                                                 <button className='completed' name='Completed' onClick={e => handleUpdate(e)}>Completed</button>
                                                 <button className='cancelled' name='Cancelled' onClick={e => handleUpdate(e)}>Cancelled</button>
@@ -347,8 +393,4 @@ export default function ServiceDetails({ type }) {
             </div>
         </>
     );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> parent of d94648d (v4)
