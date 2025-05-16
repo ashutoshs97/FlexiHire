@@ -21,7 +21,7 @@ export default function ClientMenu({ active }) {
                 <a href={`/dashboard/client/${id}/services`}>
                     <img src={freelancers} alt="Freelancers" />
                     <div className="linkHeader">
-                        Freelancers
+                        Hire
                     </div>
                 </a>
             </div>
